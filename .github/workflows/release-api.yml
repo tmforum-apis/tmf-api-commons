@@ -1,0 +1,172 @@
+name: Release TM Forum API
+description: Accepts a TM Forum API identity (e.g. TMF123), and creates a release with any un-tagged version it finds in the online directory.
+
+on:
+  workflow_call:
+    inputs:
+      api_name:
+        description: 'The API name to process (e.g., TMF677)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  api-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get data
+        run: wget https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Indexes/index.json -O downloaded_data.json
+
+      - name: Prepare script
+        run: |
+          cat > api_info.py << 'EOF'
+          import argparse
+          import json
+          import sys
+          parser = argparse.ArgumentParser()
+
+          parser.add_argument("--file", "-f", type=str, required=True)
+          parser.add_argument("--api", "-a", type=str, required=True)
+          args = parser.parse_args()
+
+          api = args.api
+          result = {}
+
+          print(f"DEBUG: Looking for API: {api}", file=sys.stderr)
+
+          with open(args.file, 'r') as f:
+              data = json.load(f)
+
+          if 'OpenApiTable' not in data:
+              print("ERROR: No 'OpenApiTable' key found in data", file=sys.stderr)
+              sys.exit(1)
+              
+          if not data.get('OpenApiTable', {}).get(api):
+              print(f"ERROR: API '{api}' not found", file=sys.stderr)
+              sys.exit(1)
+
+          api_entries = data['OpenApiTable'][api]
+          print(f"DEBUG: Found {len(api_entries)} entries for API {api}", file=sys.stderr)
+
+          for i, a in enumerate(api_entries):
+              print(f"DEBUG: Processing entry {i+1}: lifecycle_status={a.get('lifecycle_status')}", file=sys.stderr)
+              if a['lifecycle_status'] != "Production":
+                  print(f"DEBUG: Skipping entry {i+1} - not Production status", file=sys.stderr)
+                  continue;
+
+              version = a['version_info']
+              print(f"DEBUG: Processing version {version}", file=sys.stderr)
+              
+              # find the OAS
+              oas_url = None
+              for o in a['options']:
+                  if o['type'] == "swagger":
+                      oas_url = o['download']
+                      break
+
+              if oas_url:
+                  result[version] = oas_url
+                  print(f"DEBUG: Added version {version} with URL {oas_url}", file=sys.stderr)
+              else:
+                  print(f"DEBUG: No swagger option found for version {version}", file=sys.stderr)
+
+          print(f"DEBUG: Final result has {len(result)} versions", file=sys.stderr)
+          print(json.dumps(result))
+
+          EOF
+
+      - name: Run script
+        id: run-script
+        run: |
+          result=$(python api_info.py -f downloaded_data.json -a ${{ inputs.api_name }})
+          echo "result=$result" >> $GITHUB_OUTPUT
+
+      - name: API versions found
+        run: |
+          echo "${{ steps.run-script.outputs.result }}"
+
+      - name: Get releases
+        id: releases
+        run: |
+          releases=$(gh release list --json tagName,publishedAt)
+          echo "releases=$releases" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Existing releases found
+        run: |
+          echo "${{ steps.releases.outputs.releases }}"
+
+      - name: Find new versions to release
+        id: new-versions
+        run: |
+          cat > reconcile.py << 'EOF'
+          import json
+          import os
+
+          api_versions = json.loads(os.environ['API_VERSIONS'])
+          existing_releases = json.loads(os.environ['EXISTING_RELEASES'])
+          existing_tags = {r['tagName'] for r in existing_releases}
+
+          new_versions = {v: url for v, url in api_versions.items() if v not in existing_tags}
+          print(json.dumps(new_versions))
+          EOF
+
+          new_versions=$(API_VERSIONS='${{ steps.run-script.outputs.result }}' \
+          EXISTING_RELEASES='${{ steps.releases.outputs.releases }}' \
+          python reconcile.py)
+          echo "$new_versions"
+          echo "new_versions=$new_versions" >> $GITHUB_OUTPUT
+
+      - name: Get first new version to process
+        id: first-version
+        run: |
+          NEW_VERSIONS='${{ steps.new-versions.outputs.new_versions }}'
+
+          if [ "$(echo "$NEW_VERSIONS" | jq '. | length')" = "0" ]; then
+            echo "No new versions to process"
+            echo "has_work=false" >> $GITHUB_OUTPUT
+          else
+            VERSION=$(echo "$NEW_VERSIONS" | jq -r 'keys[0]')
+            URL=$(echo "$NEW_VERSIONS" | jq -r '.[keys[0]]')
+
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "url=$URL" >> $GITHUB_OUTPUT
+            echo "has_work=true" >> $GITHUB_OUTPUT
+
+            echo "Will process: $VERSION -> $URL"
+          fi
+
+      - name: Download and commit new version
+        if: steps.first-version.outputs.has_work == 'true'
+        run: |
+          VERSION='${{ steps.first-version.outputs.version }}'
+          URL='${{ steps.first-version.outputs.url }}'
+
+          # Extract filename from URL
+          FILENAME=$(basename "$URL")
+
+          echo "Downloading $VERSION to $FILENAME"
+          wget "$URL" -O "$FILENAME"
+
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add "$FILENAME"
+          git commit -m "Add ${{ inputs.api_name }} $VERSION"
+          git push origin main
+
+      - name: Create GitHub release
+        if: steps.first-version.outputs.has_work == 'true'
+        timeout-minutes: 1
+        run: |
+          VERSION='${{ steps.first-version.outputs.version }}'
+          gh release create "$VERSION" --title "${{ inputs.api_name }} $VERSION"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
