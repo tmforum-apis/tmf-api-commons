@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get data
         run: wget https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Indexes/index.json -O downloaded_data.json
