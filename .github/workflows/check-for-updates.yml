@@ -1,0 +1,141 @@
+name: Check for new API publications
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-and-dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download index
+        run: wget https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Indexes/index.json -O index-latest.json
+
+      - name: Find new publications
+        id: find-new
+        run: |
+          cat > find_new.py << 'EOF'
+          import json
+          import sys
+          from pathlib import Path
+          from datetime import date
+
+          with open("index-latest.json") as f:
+              latest = json.load(f)
+
+          cache_path = Path("index-cache.json")
+          cached = json.loads(cache_path.read_text()) if cache_path.exists() else {}
+
+          table = latest.get("OpenApiTable", {})
+          cached_table = cached.get("OpenApiTable", {})
+
+          new_publications = []  # list of {"api": "TMFxxx", "version": "x.y.z"}
+
+          for api, entries in table.items():
+              cached_entries = cached_table.get(api, [])
+              cached_versions = {e["version_info"] for e in cached_entries if e.get("lifecycle_status") == "Production"}
+
+              for entry in entries:
+                  if entry.get("lifecycle_status") != "Production":
+                      continue
+                  version = entry["version_info"]
+                  if version not in cached_versions:
+                      new_publications.append({"api": api, "version": version})
+
+          # Write results for subsequent steps
+          with open("new_publications.json", "w") as f:
+              json.dump(new_publications, f)
+
+          if new_publications:
+              print(f"Found {len(new_publications)} new publication(s):")
+              for p in new_publications:
+                  print(f"  {p['api']} {p['version']}")
+          else:
+              print("No new publications found.")
+          EOF
+
+          python find_new.py
+          echo "count=$(python -c "import json; print(len(json.load(open('new_publications.json'))))")" >> $GITHUB_OUTPUT
+
+      - name: Append to publications log
+        if: steps.find-new.outputs.count != '0'
+        run: |
+          python - << 'EOF'
+          import json
+          from pathlib import Path
+          from datetime import date
+
+          new_publications = json.loads(Path("new_publications.json").read_text())
+          today = date.today().isoformat()
+
+          log_path = Path("PUBLICATIONS.md")
+          if not log_path.exists():
+              log_path.write_text("# API Publications Log\n\n")
+
+          existing = log_path.read_text()
+          new_lines = f"## {today}\n"
+          for p in new_publications:
+              new_lines += f"- {p['api']} {p['version']}\n"
+          new_lines += "\n"
+
+          # Insert after the header
+          header = "# API Publications Log\n\n"
+          updated = existing.replace(header, header + new_lines, 1)
+          log_path.write_text(updated)
+          print(new_lines.strip())
+          EOF
+
+      - name: Update cache and commit
+        if: steps.find-new.outputs.count != '0'
+        run: |
+          cp index-latest.json index-cache.json
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index-cache.json PUBLICATIONS.md
+          git commit -m "Log $(cat new_publications.json | python -c "import json,sys; ps=json.load(sys.stdin); print(', '.join(f\"{p['api']} {p['version']}\" for p in ps))")"
+          git push
+
+      - name: Trigger release workflows for affected repos
+        if: steps.find-new.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
+        run: |
+          python - << 'EOF'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          new_publications = json.loads(Path("new_publications.json").read_text())
+          triggered = set()
+
+          for p in new_publications:
+              api = p["api"]
+              if api in triggered:
+                  continue
+
+              # Repo name pattern: tmforum-apis/TMFxxx_*
+              # Find matching repo via gh
+              result = subprocess.run(
+                  ["gh", "repo", "list", "tmforum-apis", "--json", "name", "--limit", "200"],
+                  capture_output=True, text=True
+              )
+              repos = json.loads(result.stdout)
+              matching = [r["name"] for r in repos if r["name"].startswith(api + "_")]
+
+              for repo in matching:
+                  print(f"Triggering {repo}...")
+                  subprocess.run([
+                      "gh", "workflow", "run", "release-api.yml",
+                      "--repo", f"tmforum-apis/{repo}"
+                  ], check=True)
+                  triggered.add(api)
+
+          print(f"Triggered {len(triggered)} repo(s).")
+          EOF
