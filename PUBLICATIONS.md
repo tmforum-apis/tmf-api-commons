@@ -1,5 +1,8 @@
 # API Publications Log
 
+## 2026-08-15
+- TMF641 v4.2.0
+
 ## 2026-08-07
 - TMF622 v4.0.0
 - TMF622 v5.0.0
