@@ -84,7 +84,7 @@
                 "context": "Service",
                 "release_status": "",
                 "notes": "",
-                "published_date": "20-May-2026",
+                "published_date": "11-Sept-2026",
                 "options": [
                     {
                         "icon": "abc",
@@ -761,6 +761,52 @@
                         "name": "TMF635_Usage_Management_API_v4.1.0_beta_swagger.json",
                         "type": "swagger",
                         "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF635_Usage/4.1.0/swagger/TMF635_Usage_Management_API_v4.1.0_beta_swagger.json",
+                        "default": "Not available"
+                    }
+                ]
+            }
+        ],
+        "TMF702": [
+            {
+                "api_description": {
+                    "api_name": "Resource Activation Management API",
+                    "api_description": "The Resource Activation and Configuration API can be used to query resource instances to acquire the resource activation states and attributes, and it can be used to create/update, configure and activate the resource instances."
+                },
+                "document_number": "TMF702",
+                "release_info": "21.5.0",
+                "lifecycle_status": "Pre-Production",
+                "version_info": "v5.0.0",
+                "context": "Resource, Common",
+                "release_status": "",
+                "notes": "",
+                "published_date": "11-Sept-2026",
+                "options": [
+                    {
+                        "icon": "abc",
+                        "name": "TMF702-Resource_Activation_and_Configuration-v5.0.0.postman_collection.json.zip",
+                        "type": "postman",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF702_Resource_Activation/5.0.0/postman/TMF702-Resource_Activation_and_Configuration-v5.0.0.postman_collection.json.zip",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF702_Resource_Activation_v5.0_conformance.pdf",
+                        "type": "conformance",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF702_Resource_Activation/5.0.0/conformance/TMF702_Resource_Activation_v5.0_conformance.pdf",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF702_Resource_Activation_v5.0_userguide.pdf",
+                        "type": "user_guides",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF702_Resource_Activation/5.0.0/user_guides/TMF702_Resource_Activation_v5.0_userguide.pdf",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF702-Resource_Activation_and_Configuration-v5.0.0.oas.yaml",
+                        "type": "swagger",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF702_Resource_Activation/5.0.0/swagger/TMF702-Resource_Activation_and_Configuration-v5.0.0.oas.yaml",
                         "default": "Not available"
                     }
                 ]
@@ -1523,50 +1569,6 @@
                     "api_description": "<p>The ProcessFlow API allows management of business process. It provides all required information to achieve business task requiring manual action:</p>"
                 },
                 "document_number": "TMF701",
-                "release_info": "19.0.1",
-                "lifecycle_status": "Pre-Production",
-                "version_info": "v5.0.0",
-                "context": "Common",
-                "release_status": "",
-                "notes": "",
-                "published_date": "20-Aug-2026",
-                "options": [
-                    {
-                        "icon": "abc",
-                        "name": "TMF701-Process_Management-v5.0.0.postman_collection.json.zip",
-                        "type": "postman",
-                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF701_Process_Flow/5.0.0/postman/TMF701-Process_Management-v5.0.0.postman_collection.json.zip",
-                        "default": "Not available"
-                    },
-                    {
-                        "icon": "abc",
-                        "name": "TMF701_Process_v5.0_conformance.pdf",
-                        "type": "conformance",
-                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF701_Process_Flow/5.0.0/conformance/TMF701_Process_v5.0_conformance.pdf",
-                        "default": "Not available"
-                    },
-                    {
-                        "icon": "abc",
-                        "name": "TMF701_Process_v5.0_userguide.pdf",
-                        "type": "user_guides",
-                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF701_Process_Flow/5.0.0/user_guides/TMF701_Process_v5.0_userguide.pdf",
-                        "default": "Not available"
-                    },
-                    {
-                        "icon": "abc",
-                        "name": "TMF701-Process_Management-v5.0.0.oas.yaml",
-                        "type": "swagger",
-                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF701_Process_Flow/5.0.0/swagger/TMF701-Process_Management-v5.0.0.oas.yaml",
-                        "default": "Not available"
-                    }
-                ]
-            },
-            {
-                "api_description": {
-                    "api_name": "Process Flow Management API",
-                    "api_description": "<p>The ProcessFlow API allows management of business process. It provides all required information to achieve business task requiring manual action:</p>"
-                },
-                "document_number": "TMF701",
                 "release_info": "22.5.0",
                 "lifecycle_status": "Pre-Production",
                 "version_info": "v4.1.0",
@@ -2055,50 +2057,6 @@
                 "document_number": "TMF717",
                 "release_info": "21.5.0",
                 "lifecycle_status": "Pre-Production",
-                "version_info": "v5.0.0",
-                "context": "Customer",
-                "release_status": "",
-                "notes": "",
-                "published_date": "20-Aug-2026",
-                "options": [
-                    {
-                        "icon": "abc",
-                        "name": "TMF717-Customer360-v5.0.1.postman_collection.json.zip",
-                        "type": "postman",
-                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF717_Customer360/5.0.0/postman/TMF717-Customer360-v5.0.1.postman_collection.json.zip",
-                        "default": "Not available"
-                    },
-                    {
-                        "icon": "abc",
-                        "name": "TMF717_Customer360_v5.0_conformance.pdf",
-                        "type": "conformance",
-                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF717_Customer360/5.0.0/conformance/TMF717_Customer360_v5.0_conformance.pdf",
-                        "default": "Not available"
-                    },
-                    {
-                        "icon": "abc",
-                        "name": "TMF717_Customer360_v5.0_userguide.pdf",
-                        "type": "user_guides",
-                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF717_Customer360/5.0.0/user_guides/TMF717_Customer360_v5.0_userguide.pdf",
-                        "default": "Not available"
-                    },
-                    {
-                        "icon": "abc",
-                        "name": "TMF717-Customer360-v5.0.1.oas.yaml",
-                        "type": "swagger",
-                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF717_Customer360/5.0.0/swagger/TMF717-Customer360-v5.0.1.oas.yaml",
-                        "default": "Not available"
-                    }
-                ]
-            },
-            {
-                "api_description": {
-                    "api_name": "Customer360 Management API",
-                    "api_description": "An API to give a consolidated Customer overview. This is a view-only API, based on the various underlying involved TM Forum Open APIs. This API provides references where one can find detailed information for: Account, Agreement, Appointment, CustomerBill, InteractionItem, LoyaltyBalance, ProductOrder, ProductValue, Promotion, Quote, ServiceProblem, TroubleTicket, UsageSpecification"
-                },
-                "document_number": "TMF717",
-                "release_info": "21.5.0",
-                "lifecycle_status": "Pre-Production",
                 "version_info": "v4.0.0",
                 "context": "Customer",
                 "release_status": "",
@@ -2394,6 +2352,52 @@
                         "name": "TMF909_Network_as_a_Service_Management_API_v4.2.0_beta_swagger.json",
                         "type": "swagger",
                         "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF909_Network_as_a_Service/4.2.0/swagger/TMF909_Network_as_a_Service_Management_API_v4.2.0_beta_swagger.json",
+                        "default": "Not available"
+                    }
+                ]
+            }
+        ],
+        "TMF761": [
+            {
+                "api_description": {
+                    "api_name": "Resource Qualification",
+                    "api_description": "No description available yet"
+                },
+                "document_number": "TMF761",
+                "release_info": "26.5.0",
+                "lifecycle_status": "Pre-Production",
+                "version_info": "v5.0.0",
+                "context": "Resource",
+                "release_status": "",
+                "notes": "",
+                "published_date": "11-Sept-2026",
+                "options": [
+                    {
+                        "icon": "abc",
+                        "name": "TMF761-Resource_Qualification-v5.0.0.postman_collection.json.zip",
+                        "type": "postman",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF761_Resource_Qualification/5.0.0/postman/TMF761-Resource_Qualification-v5.0.0.postman_collection.json.zip",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF761_Resource_Qualification_v5.0_conformance.pdf",
+                        "type": "conformance",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF761_Resource_Qualification/5.0.0/conformance/TMF761_Resource_Qualification_v5.0_conformance.pdf",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF761_Resource_Qualification_v5.0_userguide.pdf",
+                        "type": "user_guides",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF761_Resource_Qualification/5.0.0/user_guides/TMF761_Resource_Qualification_v5.0_userguide.pdf",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF761-Resource_Qualification-v5.0.0.oas.yaml",
+                        "type": "swagger",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/Beta/TMF761_Resource_Qualification/5.0.0/swagger/TMF761-Resource_Qualification-v5.0.0.oas.yaml",
                         "default": "Not available"
                     }
                 ]
@@ -8989,6 +8993,66 @@
                 ]
             }
         ],
+        "TMF701": [
+            {
+                "api_description": {
+                    "api_name": "Process Flow Management API",
+                    "api_description": "<p>The ProcessFlow API allows management of business process. It provides all required information to achieve business task requiring manual action:</p>"
+                },
+                "document_number": "TMF701",
+                "release_info": "19.0.1",
+                "lifecycle_status": "Production",
+                "version_info": "v5.0.0",
+                "context": "Common",
+                "release_status": "",
+                "notes": "",
+                "published_date": "11-Sept-2026",
+                "options": [
+                    {
+                        "icon": "abc",
+                        "name": "TMF701-v5.0.0-ctk-1.0.1.zip",
+                        "type": "ctk",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF701_Process_Flow/5.0.0/ctk/TMF701-v5.0.0-ctk-1.0.1.zip",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF701-Process_Management-v5.0.0.postman_collection.json.zip",
+                        "type": "postman",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF701_Process_Flow/5.0.0/postman/TMF701-Process_Management-v5.0.0.postman_collection.json.zip",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF701_Process_v5.0_conformance.pdf",
+                        "type": "conformance",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF701_Process_Flow/5.0.0/conformance/TMF701_Process_v5.0_conformance.pdf",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF701-v5.0.0-ri-1.0.1.zip",
+                        "type": "ri",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF701_Process_Flow/5.0.0/ri/TMF701-v5.0.0-ri-1.0.1.zip",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF701_Process_v5.0_userguide.pdf",
+                        "type": "user_guides",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF701_Process_Flow/5.0.0/user_guides/TMF701_Process_v5.0_userguide.pdf",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF701-Process_Management-v5.0.0.oas.yaml",
+                        "type": "swagger",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF701_Process_Flow/5.0.0/swagger/TMF701-Process_Management-v5.0.0.oas.yaml",
+                        "default": "Not available"
+                    }
+                ]
+            }
+        ],
         "TMF735": [
             {
                 "api_description": {
@@ -9578,6 +9642,66 @@
                         "name": "TMF709_Test_Scenario_Management_API_v4.0.0_swagger.json",
                         "type": "swagger",
                         "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF709_Test_Scenario/4.0.0/swagger/TMF709_Test_Scenario_Management_API_v4.0.0_swagger.json",
+                        "default": "Not available"
+                    }
+                ]
+            }
+        ],
+        "TMF717": [
+            {
+                "api_description": {
+                    "api_name": "Customer360 Management API",
+                    "api_description": "An API to give a consolidated Customer overview. This is a view-only API, based on the various underlying involved TM Forum Open APIs. This API provides references where one can find detailed information for: Account, Agreement, Appointment, CustomerBill, InteractionItem, LoyaltyBalance, ProductOrder, ProductValue, Promotion, Quote, ServiceProblem, TroubleTicket, UsageSpecification"
+                },
+                "document_number": "TMF717",
+                "release_info": "21.5.0",
+                "lifecycle_status": "Production",
+                "version_info": "v5.0.1",
+                "context": "Customer",
+                "release_status": "",
+                "notes": "",
+                "published_date": "11-Sept-2026",
+                "options": [
+                    {
+                        "icon": "abc",
+                        "name": "TMF717-v5.0.1-ctk-1.0.1.zip",
+                        "type": "ctk",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF717_Customer360/5.0.1/ctk/TMF717-v5.0.1-ctk-1.0.1.zip",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF717-Customer360-v5.0.1.postman_collection.json.zip",
+                        "type": "postman",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF717_Customer360/5.0.1/postman/TMF717-Customer360-v5.0.1.postman_collection.json.zip",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF717_Customer360_v5.0_conformance.pdf",
+                        "type": "conformance",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF717_Customer360/5.0.1/conformance/TMF717_Customer360_v5.0_conformance.pdf",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF717-v5.0.1-ri-1.0.1.zip",
+                        "type": "ri",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF717_Customer360/5.0.1/ri/TMF717-v5.0.1-ri-1.0.1.zip",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF717_Customer360_v5.0_userguide.pdf",
+                        "type": "user_guides",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF717_Customer360/5.0.1/user_guides/TMF717_Customer360_v5.0_userguide.pdf",
+                        "default": "Not available"
+                    },
+                    {
+                        "icon": "abc",
+                        "name": "TMF717-Customer360-v5.0.1.oas.yaml",
+                        "type": "swagger",
+                        "download": "https://tmf-open-api-table-documents.s3.eu-west-1.amazonaws.com/OpenApiTable/TMF717_Customer360/5.0.1/swagger/TMF717-Customer360-v5.0.1.oas.yaml",
                         "default": "Not available"
                     }
                 ]

@@ -1,5 +1,9 @@
 # API Publications Log
 
+## 2026-09-12
+- TMF701 v5.0.0
+- TMF717 v5.0.1
+
 ## 2026-09-04
 - TMF653 v5.0.0
 - TMF770 v5.0.0
